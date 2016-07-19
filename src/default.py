@@ -14,6 +14,15 @@ class downloader(object):
     def __init__(self):
         raise AttributeError("Do Not Instantiate This Class")
 
+class worker(object):
+    __slots__ = ()
+    worker_name = 'worker'
+    broker = 'amqp://guest@localhost//'
+    backend = 'rpc://'
+    persistent = False # Result is transient
+
+    def __init__(self):
+        raise AttributeError("Do Not Instantiate This Class")
+
 if __name__ == '__main__':
     raise EnvironmentError("Do Not Directly Run This Module")
-
