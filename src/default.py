@@ -14,6 +14,14 @@ class downloader(object):
     def __init__(self):
         raise AttributeError("Do Not Instantiate This Class")
 
+class parser(object):
+    __slots__ = ()
+    template = None
+    config = None
+
+    def __init__(self):
+        raise AttributeError("Do Not Instantiate This Class")
+
 class worker(object):
     __slots__ = ()
     worker_name = 'worker'
@@ -24,10 +32,18 @@ class worker(object):
     def __init__(self):
         raise AttributeError("Do Not Instantiate This Class")
 
-class parser(object):
+class task(object):
     __slots__ = ()
-    template = None
-    config = None
+    downloader = downloader
+    parser = parser
+    url = ""
+
+    def __init__(self):
+        raise AttributeError("Do Not Instantiate This Class")
+
+class manager(object):
+    __slots__ = ()
+    task = task
 
     def __init__(self):
         raise AttributeError("Do Not Instantiate This Class")
