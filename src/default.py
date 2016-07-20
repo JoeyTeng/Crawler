@@ -24,5 +24,13 @@ class worker(object):
     def __init__(self):
         raise AttributeError("Do Not Instantiate This Class")
 
+class parser(object):
+    __slots__ = ()
+    template = None
+    config = None
+
+    def __init__(self):
+        raise AttributeError("Do Not Instantiate This Class")
+
 if __name__ == '__main__':
     raise EnvironmentError("Do Not Directly Run This Module")
