@@ -8,10 +8,10 @@ class Config(object):
         self._attr = dict()
         self._lock = False
 
-    def lock():
+    def lock(self):
         self._lock = True
 
-    def release():
+    def release(self):
         self._lock = False
 
     def __getattr__(self, attr):
