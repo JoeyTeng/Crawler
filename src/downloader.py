@@ -16,7 +16,7 @@ class Downloader(object):
         return self._config
 
     @config.setter
-    def set_config(self, config):
+    def config(self, config):
         self._config = config
 
         return self
