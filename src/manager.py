@@ -53,7 +53,7 @@ class Manager(object):
 
     def complete_task(self, task):
         result = task.get()
-        store.save_data(result.url, result.data)
+        store.save_data(result.data)
         self.add_url(result.url)
 
         return self
