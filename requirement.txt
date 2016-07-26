@@ -1,9 +1,13 @@
-amqp==1.4.9
+amqp==2.0.3
 anyjson==0.3.3
-BeautifulSoup==3.2.1
+beautifulsoup4==4.5.0
 billiard==3.3.0.23
 celery==3.1.23
+chardet==2.3.0
+iconv-codecs==0.2a1
 kombu==3.0.35
+lxml==3.6.1
 pymongo==3.3.0
 pytz==2016.6.1
 requests==2.10.0
+vine==1.1.1

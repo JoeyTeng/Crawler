@@ -1,12 +1,12 @@
 #parser.py
 #--coding:utf-8--
 
-import BeautifulSoup
+from bs4 import BeautifulSoup
 
 import default
 import config
 
-class Parser(Config.config):
+class Parser(config.Config):
 
     def __init__(self, data=None, template=None, config=None):
         if data == None:
