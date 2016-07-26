@@ -1,4 +1,4 @@
-#Financial Infomation Assistant
+#Financial Information Assistant
 - 爬取新闻资讯站点并抓取
 - 解析其中带有指定关键词的新闻快速了解指定目标公司的行为
 - 使用短信/邮件/微信方式提示提示用户查看

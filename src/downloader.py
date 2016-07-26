@@ -6,7 +6,7 @@ import requests
 import default
 
 class Downloader(object):
-    __slots__ = ('_config')
+    __slots__ = ('_config', '_req')
 
     def __init__(self, config=default.downloader):
         self._config = config
