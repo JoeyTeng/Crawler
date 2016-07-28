@@ -21,13 +21,13 @@ class Downloader(object):
 
         return self
 
-    def get(self, url, parms=None, config=None):
-        if parms == None:
-            parms = self._config.parms
+    def get(self, url, params=None, config=None):
+        if params == None:
+            params = self._config.params
         if config == None:
             config = self._config
 
-        self._req = requests.get(url, parms=parms, headers=config.headers, 
+        self._req = requests.get(url, params=params, headers=config.headers, 
                 allow_redirects=config.allow_redirects, timeout=config.timeout,
                 proxies=config.proxies)
 
@@ -58,6 +58,13 @@ class Downloader(object):
     def text(self):
         try:
             return self._req.text
+        except AttributeError:
+            return None
+
+    @property
+    def content(self):
+        try:
+            return self._req.content
         except AttributeError:
             return None
 
