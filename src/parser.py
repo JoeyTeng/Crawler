@@ -18,14 +18,11 @@ class Parser(config.Config):
 
     @classmethod
     def parse(cls, data, template=default.parser.template, config=default.parser.config):
-        #try:
-            feedparsed = feedparser.parse(data)
-            parsed = cls.extract(feedparsed, template)
-            return parsed
-            store.save_data(parsed)
-            return True
-        #except:
-        #    return False
+        feedparsed = feedparser.parse(data)
+        parsed = cls.extract(feedparsed, template)
+        return parsed
+        store.save_data(parsed)
+        return True
 
     @classmethod
     def extract(cls, data, template):
