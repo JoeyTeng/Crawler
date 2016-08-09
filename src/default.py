@@ -5,6 +5,16 @@ PROJECT_NAME = 'crawler'
 CONFIG_PATH = 'config.json'
 TASK_PATH = 'primer.json'
 
+class store(object):
+    __slots__ = ()
+    host = 'localhost'
+    port = 27017
+    database = 'crawler_FIA_test'
+    collection = 'test'
+
+    def __init__(self):
+        raise AttributeError("Do Not Instantiate This Class")
+
 class downloader(object):
     __slots__ = ()
     params = None

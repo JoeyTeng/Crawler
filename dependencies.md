@@ -2,9 +2,7 @@
 RabbitMQ
 
 ---
-expect (Mac)
-expect-devel (Linux)
-for command *unbuffer*
+MongoDB as database
 
 ---
 libxml2 2.7.0 or later
