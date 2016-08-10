@@ -9,9 +9,9 @@ BROKER_URL = 'amqp://guest:guest@localhost:5672//'
 # To disable prefetching for fair distribution
 # CELERYD_PREFETCH_MULTIPLIER = 1
 
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'pickle'
+CELERY_ACCEPT_CONTENT = ['pickle']
+CELERY_RESULT_SERIALIZER = 'pickle'
 # CELERY_RESULT_BACKEND = 'rpc://'
 # messages will not be lost after a broker restart if True
 # CELERY_RESULT_PERSISTENT = False

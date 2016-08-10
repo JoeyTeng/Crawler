@@ -1,0 +1,4 @@
+cd src
+celery multi stopwait actor --pidfile='/Volumes/Macintosh_HD/Toujour/Program/Git/Nday/coding.net/News-spider/tmp/celery/run/%n.pid'
+celery multi stopwait interpreter --pidfile='/Volumes/Macintosh_HD/Toujour/Program/Git/Nday/coding.net/News-spider/tmp/celery/run/%n.pid'
+cd ..
