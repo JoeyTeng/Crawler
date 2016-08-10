@@ -11,7 +11,7 @@ class Wrapper(object):
     def __init__(self, config_path):
         self.configs = json.load(open(config_path, 'rb'))
 
-    def wrap(self, url, domain):
+    def wrap(self, url, params, domain):
         _config = domain # iterative pointer
         try:
             while isinstance(_config, basestring): # Use pointer to compress data
@@ -23,7 +23,7 @@ class Wrapper(object):
         _parser_config = config.Config()
         wrapped = config.Config()
 
-        _downloader_config.params = _config.get('params')
+        _downloader_config.params = params or _config.get('params')
         _downloader_config.config = _config.get('downloader_config')
         _parser_config.template = _config.get('template')
         _parser_config.config = _config.get('parser_config')
