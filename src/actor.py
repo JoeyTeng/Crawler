@@ -15,12 +15,8 @@ actor = celery.Celery(main='actor', config_source='celeryconfig')
 def download(url, params=None, config=None, data='text'):
     return getattr(downloader.Downloader().get(url, params=params, config=config), data)
 
-def parse_rss(data, template=default.parser.template, config=default.parser.config):
-    for args, kwargs in parser.parse_rss(data, template=template, config=config): # should return (args, kwargs) which fits 'interpreter.url'
-        actor.send_task(('%s.interpreter.url' %PROJECT_NAME), args=args, kwargs=kwargs, routing='url')
-
-def parse_webpage(data, template=default.parser.template, config=default.parser.config):
-    for args, kwargs in parser.parse_webpage(data, template=template, config=config): # should return (args, kwargs) which fits 'interpreter.url'
+def parse(data, template=default.parser.template, config=default.parser.config, parser=None):
+    for args, kwargs in parser.parse(data, template=template, config=config, parser=parser): # should return (args, kwargs) which fits 'interpreter.url'
         actor.send_task(('%s.interpreter.url' %PROJECT_NAME), args=args, kwargs=kwargs, routing='url')
 
 def rss_on_failure_handler(exc, task_id, args, kwargs, einfo):
@@ -34,8 +30,8 @@ def webpage_on_failure_handler(exc, task_id, args, kwargs, einfo):
                   max_retries=3, # Default == 3
                   default_retry_delay=3*60) # Default == 3 * 60 second
 def rss(url, downloader_config=None, parser_config=None):
-    parse_rss(download(url, params=downloader_config.params, config=downloader_config.config, data='content'),
-              template=parser_config.template, config=parser_config.config)
+    parse(download(url, params=downloader_config.params, config=downloader_config.config, data='content'),
+              template=parser_config.template, config=parser_config.config, parser='rss')
     return True
 
 @actor.task(name=('%s.actor.webpage' %PROJECT_NAME),
@@ -43,8 +39,8 @@ def rss(url, downloader_config=None, parser_config=None):
                   max_retries=3,
                   default_retry_delay=3*60)
 def webpage(url, downloader_config=None, parser_config=None):
-    parse_webpage(download(url, params=downloader_config.params, config=downloader_config.config, data='content'),
-                  template=parser_config.template, config=parser_config.config)
+    parse(download(url, params=downloader_config.params, config=downloader_config.config, data='content'),
+                  template=parser_config.template, config=parser_config.config, parser='webpage')
     return True
 
 if __name__ == '__main__':
