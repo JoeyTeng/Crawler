@@ -1,6 +1,9 @@
 #default.py
 #--coding:utf-8--
 
+PROJECT_NAME = 'crawler'
+CONFIG_PATH = 'config.json'
+
 class downloader(object):
     __slots__ = ()
     params = None
@@ -18,32 +21,6 @@ class parser(object):
     __slots__ = ()
     template = None
     config = None
-
-    def __init__(self):
-        raise AttributeError("Do Not Instantiate This Class")
-
-class worker(object):
-    __slots__ = ()
-    worker_name = 'worker'
-    broker = 'amqp://guest@localhost//'
-    backend = 'rpc://'
-    persistent = False # Result is transient
-
-    def __init__(self):
-        raise AttributeError("Do Not Instantiate This Class")
-
-class task(object):
-    __slots__ = ()
-    downloader = downloader
-    parser = parser
-    url = ""
-
-    def __init__(self):
-        raise AttributeError("Do Not Instantiate This Class")
-
-class manager(object):
-    __slots__ = ()
-    task = task
 
     def __init__(self):
         raise AttributeError("Do Not Instantiate This Class")
