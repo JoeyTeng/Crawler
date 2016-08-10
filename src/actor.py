@@ -17,7 +17,7 @@ def download(url, params=None, config=None, data='text'):
 
 def parse(data, template=default.parser.template, config=default.parser.config, parser=None):
     for args, kwargs in parser.parse(data, template=template, config=config, parser=parser): # should return (args, kwargs) which fits 'interpreter.url'
-        actor.send_task(('%s.interpreter.url' %PROJECT_NAME), args=args, kwargs=kwargs, routing='url')
+        actor.send_task(('%s.interpreter.url' %PROJECT_NAME), args=args, kwargs=kwargs, routing_key='url')
 
 def rss_on_failure_handler(exc, task_id, args, kwargs, einfo):
     pass
