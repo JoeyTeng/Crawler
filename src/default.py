@@ -36,5 +36,12 @@ class parser(object):
     def __init__(self):
         raise AttributeError("Do Not Instantiate This Class")
 
+class Mail(object):
+    __slots__ = ()
+    config = None
+
+    def __init__(self):
+        raise AttributeError("Do Not Instantiate This Class")
+
 if __name__ == '__main__':
     raise EnvironmentError("Do Not Directly Run This Module")
