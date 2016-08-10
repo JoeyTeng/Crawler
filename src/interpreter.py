@@ -23,12 +23,12 @@ def get_domain(url):
                   ignore_result=True,
                   max_retries=3, # Default == 3
                   default_retry_delay=3*60) # Default == 3 * 60 second
-def url(url, domain=None, parser=None):
+def url(url, params=None, domain=None, parser=None):
     # parser: 'webpage' for bf4, 'rss' for feedparser
     url.on_failure = url_on_failure_handler # overwrite the function of instance
     domain = domain or get_domain(url)
     parser = parser or 'webpage'
-    config = wrapper.wrap(url, domain)
+    config = wrapper.wrap(url, params, domain)
 
     if parser == 'rss':
         interpreter.send_task(('%s.actor.rss' %PROJECT_NAME), args=config.args, kwargs=config.kwargs, routing_key='rss')

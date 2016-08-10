@@ -3,6 +3,7 @@
 
 PROJECT_NAME = 'crawler'
 CONFIG_PATH = 'config.json'
+TASK_PATH = 'primer.json'
 
 class downloader(object):
     __slots__ = ()
