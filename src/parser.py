@@ -19,10 +19,6 @@ class Parser(config.Config):
             for value in self.parse_webpage(data, template=template, config=config):
                 yield value
 
-    def release(self):
-        # Ban the usage of release lock
-        raise AttributeError("'%s' object has no attribute 'release'" %(__name__))
-
     @classmethod
     def parse_rss(cls, data, template=default.parser.template, config=default.parser.config):
         feedparsed = feedparser.parse(data)
@@ -33,11 +29,11 @@ class Parser(config.Config):
                 value.append({})
                 try:
                     value[1]['domain'] = config.result.domain
-                except:
+                except (TypeError, KeyError) as Error:
                     pass
                 try:
                     value[1]['parser'] = config.result.parser
-                except:
+                except (TypeError, KeyError) as Error:
                     pass
 
                 yield tuple(value)
@@ -45,11 +41,14 @@ class Parser(config.Config):
                 parsed = value
 
         for data_parsed in parsed:
-            store.save_data(data_parsed['_data'], _id=data_parsed['_id'], _time=data_parsed['_time'])
+            store.save_data(data_parsed['_data'], _id=data_parsed['_id'], _time=data_parsed['_time'], collection='rss')
 
     @classmethod
     def parse_webpage(cls, data, template=default.parser.template, config=default.parser.config):
-        yield data
+        _data = {'data': data, '_id': id(data)}
+        store.save_data(_data, _id=_data['_id'], collection='webpage')
+        return # To prevent yield NoneType
+        yield # To make a generator
 
     @classmethod
     def extract(cls, data, template):
@@ -57,6 +56,7 @@ class Parser(config.Config):
             _store = template['_store']
             if _store == 'exclude':
                 yield []
+                return
 
             _id = None
             _time = None
@@ -68,8 +68,8 @@ class Parser(config.Config):
                 for element in data:
                     _result_pack = []
                     for value in cls.extract(element, template['_data']):
-                        if type(_result_pack) == tuple:
-                            yield _result_pack
+                        if type(value) == tuple:
+                            yield value
                         else:
                             _result_pack = value
 
@@ -79,12 +79,12 @@ class Parser(config.Config):
                             try: # Check for _id and _time
                                 _id = _result['_id']
                                 _identity = True
-                            except:
+                            except (TypeError, KeyError) as Error:
                                 pass
                             try:
                                 _time = _result['_time']
                                 _identity = True
-                            except:
+                            except (TypeError, KeyError) as Error:
                                 pass
                             if _identity:
                                 _result = _result['_data']
@@ -110,8 +110,8 @@ class Parser(config.Config):
 
                     _result_pack = []
                     for value in cls.extract(data[item[0]], item[1]):
-                        if type(_result_pack) == tuple:
-                            yield _result_pack
+                        if type(value) == tuple:
+                            yield value
                         else:
                             _result_pack = value
 
@@ -121,12 +121,12 @@ class Parser(config.Config):
                             try: #Check for _id and _time
                                 _id = _result['_id']
                                 _identity = True
-                            except:
+                            except (TypeError, KeyError) as Error:
                                 pass
                             try:
                                 _time = _result['_time']
                                 _identity = True
-                            except:
+                            except (TypeError, KeyError) as Error:
                                 pass
                             if _identity:
                                 _result = _result['_data']
@@ -140,7 +140,7 @@ class Parser(config.Config):
                 result = [data]
             elif _type == 'url':
                 result = [data]
-                yield ([url],)
+                yield ([data],)
             elif _type == 'id':
                 _id = data
                 result = [None]
@@ -162,7 +162,7 @@ class Parser(config.Config):
             yield data
 
 def parse(data, template=default.parser.template, config=default.parser.config, parser=None):
-    for value in Parser(data=data, template=template, config=config, parser=parser):
+    for value in Parser()(data=data, template=template, config=config, parser=parser):
         yield value
 
 if __name__ == '__main__':
