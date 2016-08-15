@@ -26,7 +26,12 @@ class Wrapper(object):
         _downloader_config.params = params or _config.get('params')
         _downloader_config.config = _config.get('downloader_config')
         _parser_config.template = _config.get('template')
-        _parser_config.config = _config.get('parser_config')
+        _parser_config.config = (_config.get('parser_config') or config.Config())
+        _parser_config_result = config.Config()
+        _parser_config_result.domain = domain
+        _parser_config_result.parser = 'webpage'
+        _parser_config.config.result = (_parser_config.config.result or _parser_config_result)
+
         wrapped.args = [url]
         wrapped.kwargs = {'downloader_config': _downloader_config, 'parser_config': _parser_config}
 

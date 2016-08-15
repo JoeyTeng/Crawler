@@ -6,6 +6,7 @@ import celery
 import downloader
 import parser
 
+import config
 import default
 
 PROJECT_NAME = default.PROJECT_NAME
@@ -33,6 +34,9 @@ def webpage_on_failure_handler(exc, task_id, args, kwargs, einfo):
                   max_retries=3, # Default == 3
                   default_retry_delay=3*60) # Default == 3 * 60 second
 def rss(url, downloader_config=None, parser_config=None):
+    downloader_config = config.Config(downloader_config)
+    parser_config = config.Config(parser_config)
+
     parse(download(url, params=downloader_config.params, config=downloader_config.config, data='content'),
               template=parser_config.template, config=parser_config.config, parser='rss')
     return True
@@ -43,6 +47,9 @@ def rss(url, downloader_config=None, parser_config=None):
                   max_retries=3,
                   default_retry_delay=3*60)
 def webpage(url, downloader_config=None, parser_config=None):
+    downloader_config = config.Config(downloader_config)
+    parser_config = config.Config(parser_config)
+
     parse(download(url, params=downloader_config.params, config=downloader_config.config, data='content'),
                   template=parser_config.template, config=parser_config.config, parser='webpage')
     return True

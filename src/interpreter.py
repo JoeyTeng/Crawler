@@ -5,8 +5,9 @@ import re
 
 import celery
 
-import wrapper
+import config
 import default
+import wrapper
 
 PROJECT_NAME = default.PROJECT_NAME
 
@@ -31,10 +32,14 @@ def url(_url, params=None, domain=None, parser=None):
     parser = parser or 'webpage'
     config = wrapper.wrap(_url, params, domain)
 
+    config = dict(config)
+    args = config['args']
+    kwargs = config['kwargs']
+
     if parser == 'rss':
-        interpreter.send_task(('%s.actor.rss' %PROJECT_NAME), args=config.args, kwargs=config.kwargs, routing_key='rss', queue='rss')
+        interpreter.send_task(('%s.actor.rss' %PROJECT_NAME), args=args, kwargs=kwargs, routing_key='rss', queue='rss')
     elif parser == 'webpage':
-        interpreter.send_task(('%s.actor.webpage' %PROJECT_NAME), args=config.args, kwargs=config.kwargs, routing_key='webpage', queue='webpage')
+        interpreter.send_task(('%s.actor.webpage' %PROJECT_NAME), args=args, kwargs=kwargs, routing_key='webpage', queue='webpage')
 
 @interpreter.task(name=('%s.interpreter.rss_failure' %PROJECT_NAME),
                   queue='rss_failure',
