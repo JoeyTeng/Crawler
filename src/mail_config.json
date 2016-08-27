@@ -1,1 +1,1 @@
-{"password": "cssors123", "to_addr": "", "smtp_server": "smtp.163.com", "smtp_port": 25, "from_addr": "cssors@163.com"}
+{"password": "cssors123", "addressee": "", "smtp_server": "smtp.163.com", "smtp_port": 25, "addresser": "cssors@163.com"}
