@@ -1,15 +1,16 @@
-#mail.py
-#--coding:utf-8--
+# mail.py
+# --coding:utf-8--
 import email
 import email.header
 import email.mime.text
 import email.utils
 import smtplib
 
-import config
 import default
 
+
 class Mail(object):
+
     def __init__(self, config=None):
         self.config = config or default.Mail.config
 

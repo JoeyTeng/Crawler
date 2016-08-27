@@ -1,5 +1,5 @@
-#celeryconfig.py
-#--coding:utf-8--
+# celeryconfig.py
+# --coding:utf-8--
 
 # transport://userid:password@hostname:port/virtual_host
 BROKER_URL = 'amqp://guest:guest@localhost:5672//'
@@ -24,7 +24,7 @@ CELERY_MESSAGE_COMPRESSION = 'gzip'
 CELERY_ACKS_LATE = True
 
 CELERY_ROUTES = {"celery.ping": "default",
-                 "actor.rss" : {
+                 "actor.rss": {
                      "queue": "rss",
                      "routing_key": "rss"},
                  "actor.webpage": {
@@ -39,4 +39,3 @@ CELERY_ROUTES = {"celery.ping": "default",
                  "interpreter.url": {
                      "queue": "url",
                      "routing_key": "url"}}
-

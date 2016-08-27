@@ -1,5 +1,6 @@
-#config.py
-#--coding:utf-8--
+# config.py
+# --coding:utf-8--
+
 
 class Config(object):
     __slots__ = ('__dict__')
@@ -8,18 +9,19 @@ class Config(object):
         data = data or {}
         for item in data.iteritems():
             if isinstance(item[1], dict):
-                self.__dict__[item[0]] = self.__class__(item[1]) # Rebuilt config from a dict object
+                self.__dict__[item[0]] = self.__class__(
+                    item[1])  # Rebuilt config from a dict object
             else:
                 self.__dict__[item[0]] = item[1]
 
     def __str__(self):
-        return ("%r" %(self.__dict__))
+        return ("%r" % (self.__dict__))
 
     def __unicode__(self):
         return unicode(self.__str__)
 
     def __repr__(self):
-        return "%r: %s" %(id(self), self.__str__())
+        return "%r: %s" % (id(self), self.__str__())
 
     def __getitem__(self, y):
         item = self.__dict__.__getitem__(y)
@@ -66,7 +68,8 @@ class Config(object):
 
     def __getattr__(self, name, default=None):
         if name == 'read':
-            raise AttributeError("'%s' object has no attribtue 'read' (adapting for requests module)" %(__name__))
+            raise AttributeError(
+                "'%s' object has no attribtue 'read' (adapting for requests module)" % (__name__))
         return self.get(name, default)
 
     def __setattr__(self, name, value):
@@ -76,11 +79,12 @@ class Config(object):
         try:
             self.__dict__.pop(name)
         except KeyError:
-            raise AttributeError("'%s' object has no attribute '%s'" %(__name__, name))
+            raise AttributeError(
+                "'%s' object has no attribute '%s'" % (__name__, name))
 
     def del_attr(self, name):
         self.__delattr__(name)
 
+
 class Downloader(Config):
     pass
-

@@ -1,9 +1,10 @@
-#downloader.py
-#--coding:utf-8--
+# downloader.py
+# --coding:utf-8--
 
 import requests
 
 import default
+
 
 class Downloader(object):
     __slots__ = ('_config', '_req')
@@ -22,14 +23,12 @@ class Downloader(object):
         return self
 
     def get(self, url, params=None, config=None):
-        if params == None:
-            params = self._config.params
-        if config == None:
-            config = self._config
+        params = params or self._config.params
+        config = config or self._config
 
-        self._req = requests.get(url, params=params, headers=config.headers, 
-                allow_redirects=config.allow_redirects, timeout=config.timeout,
-                proxies=config.proxies)
+        self._req = requests.get(url, params=params, headers=config.headers,
+                                 allow_redirects=config.allow_redirects, timeout=config.timeout,
+                                 proxies=config.proxies)
 
         return self
 

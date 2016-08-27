@@ -1,6 +1,6 @@
-#__init__.py
-#--coding:utf-8--
-#import all modules
+# __init__.py
+# --coding:utf-8--
+# import all modules
 import actor
 import config
 import default
