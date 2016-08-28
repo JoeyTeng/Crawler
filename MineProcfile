@@ -36,6 +36,8 @@ argstart=$?
 arginfo=$(showargs "${@:$argstart}")
 
 CURRENT_WORK_PATH=`pwd`
+mkdir -p "$CURRENT_WORK_PATH/tmp/celery/run"
+mkdir -p "$CURRENT_WORK_PATH/tmp/celery/log"
 arg="$1"
 cd src
 if [[ "$arg" == "" || "$arg" == "help" ]]
