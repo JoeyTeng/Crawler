@@ -1,5 +1,0 @@
-export CURRENT_WORK_PATH=`pwd`
-cd src
-celery multi stopwait interpreter --pidfile="$CURRENT_WORK_PATH/tmp/celery/run/%n.pid"
-celery multi stopwait actor --pidfile="$CURRENT_WORK_PATH/tmp/celery/run/%n.pid"
-cd ..
