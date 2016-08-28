@@ -1,0 +1,18 @@
+#!/bin/bash
+echo "start crawler"
+./Procfile start
+cd src
+python task_loader.py
+cd ..
+sleep 60
+
+echo "start miner"
+./MineProcfile start
+cd src
+python miner.py
+cd ..
+sleep 60
+
+echo "Completed. Exiting..."
+./Procfile stop
+./MineProcfile stop
