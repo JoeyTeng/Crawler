@@ -1,6 +1,10 @@
 # default.py
 # --coding:utf-8--
 
+import json
+
+import config
+
 PROJECT_NAME = 'crawler'
 CONFIG_PATH = 'config.json'
 TASK_PATH = 'primer.json'
@@ -42,15 +46,17 @@ class parser(object):
 
 class miner(object):
     __slots__ = ()
-    config = None
+    config_path = 'mine_config.json'
+    config = config.Config(json.load(open(config_path, 'rb')))
 
     def __init__(self):
         raise AttributeError("Do Not Instantiate This Class")
 
 
-class Mail(object):
+class mail(object):
     __slots__ = ()
-    config = None
+    config_path = 'mail_config.json'
+    config = config.Config(json.load(open(config_path, 'rb')))
 
     def __init__(self):
         raise AttributeError("Do Not Instantiate This Class")
