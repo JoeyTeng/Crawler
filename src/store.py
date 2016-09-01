@@ -29,7 +29,7 @@ def save_data(data, _id=None, _time=None, collection=None, database=None):
     database = database or config.database
 
     # UTC time in s since Epoch
-    _timestamp = data.get('_timestamp') or (time.time(
+    _timestamp = _time or data.get('_timestamp') or (time.time(
     ) + (time.altzone if time.daylight else time.timezone))
     data['_timestamp'] = _timestamp
 

@@ -40,7 +40,7 @@ class Parser(config.Config):
 
         for data_parsed in parsed:
             store.save_data(data_parsed['_data'], _id=data_parsed[
-                            '_id'], _time=data_parsed['_time'], collection='rss')
+                            '_id'], _time=data_parsed['_timestamp'], collection='rss')
 
     @classmethod
     def parse_webpage(cls, data, template=default.parser.template, config=default.parser.config):
@@ -58,7 +58,7 @@ class Parser(config.Config):
                 return
 
             _id = None
-            _time = None
+            _timestamp = None
 
             _type = template['_type']
             result = []
@@ -74,19 +74,19 @@ class Parser(config.Config):
 
                     for _result in _result_pack:
                         if _store == 'pack':
-                            _identity = False  # If contains _id or _time
-                            # Check for _id and _time
+                            _identity = False  # If contains _id or _timestamp
+                            # Check for _id and _timestamp
                             with syntactic_sugar.suppress(TypeError, KeyError):
                                 _id = _result['_id']
                                 _identity = True
                             with syntactic_sugar.suppress(TypeError, KeyError):
-                                _time = _result['_time']
+                                _timestamp = _result['_timestamp']
                                 _identity = True
 
                             if _identity:
                                 _result = _result['_data']
 
-                            if _result is None:  # Remove 'id' and 'time'
+                            if _result is None:  # Remove 'id' and 'timestamp'
                                 continue
 
                         _data.append(_result)
@@ -115,19 +115,19 @@ class Parser(config.Config):
 
                     for _result in _result_pack:  # To unpack the result
                         if _store == 'pack':
-                            _identity = False  # If contains _id or _time
-                            # Check for _id and _time
+                            _identity = False  # If contains _id or _timestamp
+                            # Check for _id and _timestamp
                             with syntactic_sugar.suppress(TypeError, KeyError):
                                 _id = _result['_id']
                                 _identity = True
                             with syntactic_sugar.suppress(TypeError, KeyError):
-                                _time = _result['_time']
+                                _timestamp = _result['_timestamp']
                                 _identity = True
 
                             if _identity:
                                 _result = _result['_data']
 
-                            if _result is not None:  # Remove 'id' and 'time'
+                            if _result is not None:  # Remove 'id' and 'timestamp'
                                 result[0][item[0]] = _result
                         elif _store == 'unpack':
                             result.append(_result)
@@ -140,17 +140,17 @@ class Parser(config.Config):
             elif _type == 'id':
                 _id = data
                 result = [None]
-            elif _type == 'time':
-                _time = time.mktime(data)
+            elif _type == 'timestamp':
+                _timestamp = time.mktime(data)
                 result = [None]
             # Pack for special identity
-            if _id is not None or _time is not None:
+            if _id is not None or _timestamp is not None:
                 # Unpack result to prevent double pack
                 result = {'_data': result[0]}
                 if _id is not None:
                     result['_id'] = _id
-                if _time is not None:
-                    result['_time'] = _time
+                if _timestamp is not None:
+                    result['_timestamp'] = _timestamp
                 result = [result]
 
             yield result
